@@ -24,12 +24,12 @@ public class GameManager : MonoBehaviour
     private TMP_Text waveUI;
 
     public int gameRound = 1;
+    private bool isTowerPointSet = false; // 타워 포인트 짓기.(라운드 시작 전)
     private bool isRoundDone = true; // 라운드가 끝나면 true , 라운드 시작하면 false
-    private bool isTowerSelected = false;
-    private bool isTowerSetting = false;
-    private int enemyNum = 0;
+    private bool isCardSetting = false; // 카드 세팅 5개 됫는지.(라운드 시작 전.)
+    private bool isTowerSelected = false; // 타워 지어졌음. -> 라운드 시작 가능.
     private float timerRound = 0.0f;
-    private const float waitCardSelectTime = 40f;
+    private const float waitCardSelectTime = 180f;
 
     private void Awake()
     {
@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
         btn_CardChange[2].onClick.AddListener(delegate { cardChangeBtnClick(2); });
         btn_CardChange[3].onClick.AddListener(delegate { cardChangeBtnClick(3); });
         btn_CardChange[4].onClick.AddListener(delegate { cardChangeBtnClick(4); });
+
+        btn_RoundStart.onClick.AddListener(roundStartBtnClick);
     }
 
     private void Update()
@@ -46,10 +48,10 @@ public class GameManager : MonoBehaviour
         timerSetting();
         
         // 라운드가 시작 안해있고, 타워 처음 세팅 안됨.
-        if (isRoundDone && !isTowerSetting)
+        if (isRoundDone && !isCardSetting)
         {
-            waveSetting();
-            newTowerSetting();
+            waveSetting(); // WAVE UI 세팅.
+            newCardSetting();
         }
 
         // 카드 패를 통한 타워 생성 시간.(3분)
@@ -57,10 +59,23 @@ public class GameManager : MonoBehaviour
         {
             // 제한 시간내 타워 선택 안할시, 넘어감.
             if(timerRound >= waitCardSelectTime) { isTowerSelected = true;}
-            
-            // 자리 선정. x 표시.
 
-            // 자리 선정 된 지점이 있고, 타워 선택 버튼 클릭시, 타워 생성.
+            // 자리 선정. 타워 설치 장소 표시하기.
+            if (Input.GetMouseButtonDown(0) && !isTowerPointSet)
+            {
+                tileDetecter.MousePos = Input.mousePosition;
+                tileDetecter.SavePlace();
+                if (tileDetecter.TileToSpawnTower != null)
+                {
+                    isTowerPointSet = true;
+                }
+            }
+
+            // 자리 선정 된 지점이 있고, 타워 선택 버튼 클릭시, 타워 생성 가능.
+            if (isTowerPointSet)
+            {
+                btn_RoundStart.interactable = true;
+            }
 
         }
 
@@ -68,6 +83,7 @@ public class GameManager : MonoBehaviour
         if(isRoundDone && isTowerSelected)
         { 
             roundStart();
+            isTowerPointSet = false;
         }
 
         // 라운드 도중. 타이머10 초 넘어가면, 적 생성 멈춤.
@@ -88,7 +104,7 @@ public class GameManager : MonoBehaviour
     }
 
     // 라운드 시작 전, 카드 5개 세팅.
-    public void newTowerSetting()
+    public void newCardSetting()
     {
         timerRound = 0.0f;
         for (int i = 0; i < 5; i++)
@@ -96,8 +112,8 @@ public class GameManager : MonoBehaviour
             pockergenerater.newCards();
             btn_CardChange[i].interactable = true; // 한번씩 바꿀 기회 주기.
         }
-        this.isTowerSetting = true;
-        Debug.Log(pockergenerater.checkCardHands());
+        btn_RoundStart.interactable = false;
+        this.isCardSetting = true;
     }
 
     // 적 생성 시작.
@@ -116,7 +132,7 @@ public class GameManager : MonoBehaviour
     public void roundEnd()
     {
         gameRound++;
-        this.isRoundDone = true; this.isTowerSetting = false;
+        this.isRoundDone = true; this.isCardSetting = false;
     }
 
     // 카드 변경 버튼 콜벡함수.
@@ -124,7 +140,17 @@ public class GameManager : MonoBehaviour
     {
         pockergenerater.changeCards(index);
         btn_CardChange[index].interactable = false; // 한번씩 바꿀 기회 주기.
-        Debug.Log(pockergenerater.checkCardHands());
+    }
+
+    // 라운드 시작 버튼 콜백함수. (타워 생성 위치 결정시, 활성화.)
+    void roundStartBtnClick()
+    {
+        if (towerSpawner.TowerPoint)
+        {
+            tileDetecter.GenerateTower(pockergenerater.checkCardHands());
+            isTowerSelected = true;
+        }
+        btn_RoundStart.interactable = false;
     }
 
     // 타이멍 UI 세팅

@@ -8,21 +8,21 @@ public class PockerGenerater : MonoBehaviour
 {
     private enum cardHand
     {
-       Flush,
-       RoyalStraightFlush,
-       BackStraightFlush,
-       StraightFlush,
-       FiveCardFlush,
-       FiveCard,
-       Mountain,
-       FourCard,
-       BackStraight,
-       Straight,
-       FullHouse,
-       Triple,
-       TwoPair,
-       OnePair,
-       Top
+       Flush, // 데미지 : 75
+       RoyalStraightFlush, // 데미지 : 180
+       BackStraightFlush, // 데미지 : 160 
+       StraightFlush, // 데미지 : 140
+       FiveCardFlush, // 데미지 : 120
+       FiveCard, // 데미지 : 100
+       Mountain, // 데미지 : 80
+       FourCard, // 데미지 : 70
+       BackStraight, // 데미지 : 65
+       Straight, // 데미지 : 60
+       FullHouse, // 데미지 : 50
+       Triple, // 데미지 : 40
+       TwoPair, // 데미지 : 30
+       OnePair, // 데미지 : 20
+       Top // 데미지 : 10
     };
 
 

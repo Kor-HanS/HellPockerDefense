@@ -35,13 +35,4 @@ public class Card
         this.CardColor = colors[colorRandNum];
         this.CardChar = cardChars[cardCharRandNum];
     }
-
-    public void changeCard(int cardChangeChance)
-    {
-        if(cardChangeChance > 0)
-        {
-            newCard();
-            cardChangeChance--;
-        }
-    }
 }
