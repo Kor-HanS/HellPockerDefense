@@ -97,7 +97,6 @@ public class TowerSpawner : MonoBehaviour
                     break;
 
             }
-            Debug.Log(tower.GetComponent<Tower>().Damage);
         }
         else
         {

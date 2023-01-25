@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField]
+    GameObject hpBarPrefab;
+
     private Movement2D movement2D;
     private Transform[] wayPoints; 
     private int wayPointLength;
     private int currentIndex = 0;
+
+    public int EnemyHp { get; set; }
 
     private void Awake()
     {
@@ -24,7 +29,7 @@ public class Enemy : MonoBehaviour
         transform.position = wayPoints[currentIndex].position;
 
         // 웨이 포인트 이동 코루틴 함수.
-        StartCoroutine("MoveTo");
+        StartCoroutine(MoveTo());
     }
 
     private IEnumerator MoveTo()
@@ -56,7 +61,22 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            GameManager.Instance.EnemySpawnerGM.DestroyEnenmy(this);
+        }
+    }
+
+    public void OnDie()
+    {
+        GameManager.Instance.EnemySpawnerGM.EnemyList.Remove(this);
+        Destroy(gameObject);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        EnemyHp -= damage;
+        if(EnemyHp <= 0)
+        {
+            OnDie();
         }
     }
 
