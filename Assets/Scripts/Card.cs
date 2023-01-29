@@ -5,15 +5,12 @@ using UnityEngine;
 public class Card
 {
 
-    // 색깔: yellow / red / blue / green
     public Color CardColor{get;  set;}
-    // 카드 패 : 7 / 8 / 9 / 10 / K / Q / J / A
     public string CardChar { get; set; }
 
     private int colorRandNum;
     private int cardCharRandNum;
 
-    // 카드 패 및 색깔
     public static Color[] colors = {UnityEngine.Color.red, UnityEngine.Color.blue, UnityEngine.Color.green, UnityEngine.Color.yellow };
     public static string[] cardChars = { "7", "8", "9", "10", "K", "Q", "J", "A" };
 

@@ -19,8 +19,9 @@ public class GameManager : MonoBehaviour
     public TowerSpawner TowerSpawnerGM => towerSpawnerGM;
 
     [SerializeField]
-    private TileDetecter tileDetecterGM;
-    public TileDetecter TileDetecterGM => tileDetecterGM;
+    private ObjectDetecter objectDetecterGM;
+    public ObjectDetecter ObjectDetecterGM => objectDetecterGM;
+
     [SerializeField]
     private Button btn_RoundStart;
     [SerializeField]
@@ -32,9 +33,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private TMP_Text enemyNumUI;
     [SerializeField]
-    private float waitCardSelectTime = 180f; // °ÔÀÓ ÁØºñ½Ã°£.
+    private float waitCardSelectTime = 180f;
 
-    // get ÇÁ·ÎÆÛÆ¼. -> ÇÏ³ªÀÇ Å¬·¡½º¿¡ ¿ÀÁ÷ ÇÏ³ªÀÇ °´Ã¼ ÀÎ½ºÅÏ½º.
     private static GameManager instance;
     public static GameManager Instance
     {
@@ -48,12 +48,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
     public int gameRound = 1;
-    private bool isTowerPointSet = false; // Å¸¿ö Æ÷ÀÎÆ® Áþ±â.(¶ó¿îµå ½ÃÀÛ Àü)
-    private bool isRoundDone = true; // ¶ó¿îµå°¡ ³¡³ª¸é true , ¶ó¿îµå ½ÃÀÛÇÏ¸é false
-    private bool isCardSetting = false; // Ä«µå ¼¼ÆÃ 5°³ µÌ´ÂÁö.(¶ó¿îµå ½ÃÀÛ Àü.)
-    private bool isTowerSelected = false; // Å¸¿ö Áö¾îÁ³À½. -> ¶ó¿îµå ½ÃÀÛ °¡´É.
+    private bool isTowerPointSet = false;
+    private bool isRoundDone = true;
+    private bool isCardSetting = false; 
+    private bool isTowerSelected = false; 
     private float timerRound = 0.0f;
 
     private void Awake()
@@ -70,36 +69,38 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        // Å¸ÀÌ¸Ó ¼³Á¤.
+        // íƒ€ì›Œ ì •ë³´ ì¶œë ¥.
+        if(Input.GetKeyDown(KeyCode.Escape)){ObjectDetecterGM.OffTowerClick();}
+        
+        if(Input.GetMouseButtonDown(0)){
+            ObjectDetecterGM.MousePos = Input.mousePosition;
+            ObjectDetecterGM.OnTowerClick();
+        }
+
         TimerUISetting();
-        // Àû ¼ö ¼³Á¤.
+
         EnemyNumUISetting();
         
-        // ¶ó¿îµå°¡ ½ÃÀÛ ¾ÈÇØÀÖ°í, Å¸¿ö Ã³À½ ¼¼ÆÃ ¾ÈµÊ.
         if (isRoundDone && !isCardSetting)
         {
-            WaveUISetting(); // WAVE UI ¼¼ÆÃ.
+            WaveUISetting();
             NewCardSetting();
         }
 
-        // Ä«µå ÆÐ¸¦ ÅëÇÑ Å¸¿ö »ý¼º ½Ã°£.(3ºÐ)
         if(isRoundDone && !isTowerSelected)
         {
-            // Á¦ÇÑ ½Ã°£³» Å¸¿ö ¼±ÅÃ ¾ÈÇÒ½Ã, ³Ñ¾î°¨.
             if(timerRound >= waitCardSelectTime) { isTowerSelected = true;}
 
-            // ÀÚ¸® ¼±Á¤. Å¸¿ö ¼³Ä¡ Àå¼Ò Ç¥½ÃÇÏ±â.
             if (Input.GetMouseButtonDown(0) && !isTowerPointSet)
             {
-                TileDetecterGM.MousePos = Input.mousePosition;
-                TileDetecterGM.SavePlace();
-                if (TileDetecterGM.TileToSpawnTower != null)
+                ObjectDetecterGM.MousePos = Input.mousePosition;
+                ObjectDetecterGM.SavePlace();
+                if (ObjectDetecterGM.TileToSpawnTower != null)
                 {
                     isTowerPointSet = true;
                 }
             }
 
-            // ÀÚ¸® ¼±Á¤ µÈ ÁöÁ¡ÀÌ ÀÖ°í, Å¸¿ö ¼±ÅÃ ¹öÆ° Å¬¸¯½Ã, Å¸¿ö »ý¼º °¡´É.
             if (isTowerPointSet)
             {
                 btn_RoundStart.interactable = true;
@@ -107,20 +108,17 @@ public class GameManager : MonoBehaviour
 
         }
 
-        // ¶ó¿îµå ½ÃÀÛ ¾ÈÇØÀÖ°í, Å¸¿ö ¼±ÅÃ ³¡³².
         if(isRoundDone && isTowerSelected)
         { 
             RoundStart();
             isTowerPointSet = false;
         }
 
-        // ¶ó¿îµå µµÁß. Å¸ÀÌ¸Ó10 ÃÊ ³Ñ¾î°¡¸é, Àû »ý¼º ¸ØÃã.
         if(!isRoundDone && timerRound >= 10)
         {
            EnemySpawnerGM.StopSpawnEnemy();
         }
 
-        // ¶ó¿îµå µµÁß, Å¸ÀÌ¸Ó 20ÃÊ ÀÌÈÄ, ÀûÀÌ ¾ø´Ù¸é ¶ó¿îµå Á¾·á.
         if (!isRoundDone && timerRound >= 20)
         {
             GameObject enemy = GameObject.FindWithTag("Enemy");
@@ -131,66 +129,58 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ¶ó¿îµå ½ÃÀÛ Àü, Ä«µå 5°³ ¼¼ÆÃ.
     public void NewCardSetting()
     {
         timerRound = 0.0f;
         for (int i = 0; i < 5; i++)
         {
             PockerGeneraterGM.NewCards();
-            btn_CardChange[i].interactable = true; // ÇÑ¹ø¾¿ ¹Ù²Ü ±âÈ¸ ÁÖ±â.
+            btn_CardChange[i].interactable = true;
         }
         btn_RoundStart.interactable = false;
         this.isCardSetting = true;
     }
 
-    // Àû »ý¼º ½ÃÀÛ.
     public void RoundStart()
     {
         timerRound = 0.0f;
         for (int i = 0; i < 5; i++)
         {
-            btn_CardChange[i].interactable = false; // ÇÑ¹ø¾¿ ¹Ù²Ü ±âÈ¸ ÁÖ±â.
+            btn_CardChange[i].interactable = false;
         }
         EnemySpawnerGM.StartSpawnEnemy();
         this.isRoundDone = false; this.isTowerSelected = false;
     }
 
-    // Àû °´Ã¼ ¸ðµÎ »èÁ¦ µÇ°Å³ª, Á¦ÇÑ ½Ã°£ Á¾·á.
     public void RoundEnd()
     {
         gameRound++;
         this.isRoundDone = true; this.isCardSetting = false;
     }
 
-    // Ä«µå º¯°æ ¹öÆ° ÄÝº¤ÇÔ¼ö.
     void CardChangeBtnClick(int index)
     {
         PockerGeneraterGM.ChangeCards(index);
-        btn_CardChange[index].interactable = false; // ÇÑ¹ø¾¿ ¹Ù²Ü ±âÈ¸ ÁÖ±â.
+        btn_CardChange[index].interactable = false;
     }
 
-    // ¶ó¿îµå ½ÃÀÛ ¹öÆ° ÄÝ¹éÇÔ¼ö. (Å¸¿ö »ý¼º À§Ä¡ °áÁ¤½Ã, È°¼ºÈ­.)
     void RoundStartBtnClick()
     {
         if (TowerSpawnerGM.TowerPoint)
         {
-            TileDetecterGM.GenerateTower(PockerGeneraterGM.CheckCardHands());
+            ObjectDetecterGM.GenerateTower(PockerGeneraterGM.CheckCardHands());
             isTowerSelected = true;
         }
         btn_RoundStart.interactable = false;
     }
 
-    // Å¸ÀÌ¸Û UI ¼¼ÆÃ
     void TimerUISetting()
     {
-        // Å¸ÀÌ¸Ó ¼³Á¤.
         timerRound += Time.deltaTime;
         string timerString = string.Format("{0:D2} : {1:D2}", Mathf.CeilToInt(timerRound / 60) - 1, Mathf.CeilToInt(timerRound % 60) - 1);
         timerUI.SetText(timerString);
     }
 
-    // waveUI ¼¼ÆÃ
     void WaveUISetting()
     {
         string waveString = string.Format("{0:D2}", gameRound);

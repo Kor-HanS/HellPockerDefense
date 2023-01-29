@@ -18,89 +18,94 @@ public class TowerSpawner : MonoBehaviour
 
     public void SetTowerPos(Transform savePosTransform)
     {
-        // Å¸¿ö Æ÷ÀÎÆ® Âï±â.
         TowerPoint = Instantiate(pointPrefab, savePosTransform.position, Quaternion.identity);
     }
 
     public void SpawnTower(Transform towerTransform, int cardHand)
     {
-        // Å¸¿ö Æ÷ÀÎÆ® ÀÖÀ¸¸é, Å¸¿ö Áþ±â.
         if (TowerPoint)
         {
             Destroy(TowerPoint);
             towerTransform.GetComponent<Tile>().IsBuildTower = true;
-            GameObject tower = Instantiate(towerPrefab, towerTransform.position, Quaternion.identity);
+            GameObject towerObj = Instantiate(towerPrefab, towerTransform.position, Quaternion.identity);
+            Tower towerInstance = towerObj.GetComponent<Tower>();
+            towerInstance.Level = 1;
+            towerInstance.ShootRange = 3;
+            towerInstance.ShootSpeed = 6;
             this.TowerPoint = null;
 
-            // Å¸¿ö Á¤º¸ ÁÖ±â.
             switch (cardHand)
             {
                 case 0:
-                    // ÇÃ·¯½¬
-                    tower.GetComponent<Tower>().Damage = 75;
+                    // ï¿½Ã·ï¿½ï¿½ï¿½
+                    towerInstance.Damage = 75;
                     break;
                 case 1:
-                    // ·ÎÆ¼ÇÃ
-                    tower.GetComponent<Tower>().Damage = 180;
+                    // ï¿½ï¿½Æ¼ï¿½ï¿½
+                    towerInstance.Damage = 180;
+                    towerInstance.ShootRange = 5;
                     break;
                 case 2:
-                    // ¹é½ºÇÃ
-                    tower.GetComponent<Tower>().Damage = 160;
+                    // ï¿½é½ºï¿½ï¿½
+                    towerInstance.Damage = 160;
+                    towerInstance.ShootRange = 5;
                     break;
                 case 3:
-                    // ½ºÆ®ÇÃ
-                    tower.GetComponent<Tower>().Damage = 140;
+                    // ï¿½ï¿½Æ®ï¿½ï¿½
+                    towerInstance.Damage = 140;
+                    towerInstance.ShootRange = 5;
                     break;
                 case 4:
-                    // ÆÄÄ«Ç®
-                    tower.GetComponent<Tower>().Damage = 120;
+                    // ï¿½ï¿½Ä«Ç®
+                    towerInstance.Damage = 120;
+                    towerInstance.ShootRange = 5;
                     break;
                 case 5:
-                    // ÆÄÀÌºêÄ«µå
-                    tower.GetComponent<Tower>().Damage = 100;
+                    // ï¿½ï¿½ï¿½Ìºï¿½Ä«ï¿½ï¿½
+                    towerInstance.Damage = 100;
+                    towerInstance.ShootRange = 5;
                     break;
                 case 6:
-                    // ¸¶¿îÆ¾
-                    tower.GetComponent<Tower>().Damage = 80;
+                    // ï¿½ï¿½ï¿½ï¿½Æ¾
+                    towerInstance.Damage = 80;
                     break;
                 case 7:
-                    // Æ÷Ä«
-                    tower.GetComponent<Tower>().Damage = 70;
+                    // ï¿½ï¿½Ä«
+                    towerInstance.Damage = 70;
                     break;
                 case 8:
-                    // ¹é½ºÆ®·¹ÀÌÆ®
-                    tower.GetComponent<Tower>().Damage = 65;
+                    // ï¿½é½ºÆ®ï¿½ï¿½ï¿½ï¿½Æ®
+                    towerInstance.Damage = 65;
                     break;
                 case 9:
-                    // ½ºÆ®·¹ÀÌÆ®
-                    tower.GetComponent<Tower>().Damage = 60;
+                    // ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½Æ®
+                    towerInstance.Damage = 60;
                     break;
                 case 10:
-                    // Ç®ÇÏ¿ì½º
-                    tower.GetComponent<Tower>().Damage = 50;
+                    // Ç®ï¿½Ï¿ì½º
+                    towerInstance.Damage = 50;
                     break;
                 case 11:
-                    // Æ®¸®ÇÃ
-                    tower.GetComponent<Tower>().Damage = 40;
+                    // Æ®ï¿½ï¿½ï¿½ï¿½
+                    towerInstance.Damage = 40;
                     break;
                 case 12:
-                    // ÅõÆä¾î
-                    tower.GetComponent<Tower>().Damage = 30;
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½
+                    towerInstance.Damage = 30;
                     break;
                 case 13:
-                    // ¿øÆä¾î
-                    tower.GetComponent<Tower>().Damage = 20;
+                    // ï¿½ï¿½ï¿½ï¿½ï¿½
+                    towerInstance.Damage = 20;
                     break;
                 case 14:
                     // Å¾
-                    tower.GetComponent<Tower>().Damage = 10;
+                    towerInstance.Damage = 10;
                     break;
-
             }
         }
         else
         {
-            Debug.Log("À§Ä¡¸¦ °áÁ¤ÇÏ¼¼¿ä.");
+            Debug.Log("ì—†ëŠ” íŒ¨ìž…ë‹ˆë‹¤.");
         }
     }
 

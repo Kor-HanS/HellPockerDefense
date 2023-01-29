@@ -25,16 +25,16 @@ public class Enemy : MonoBehaviour
         this.wayPoints = wayPoints;
         this.wayPointLength = wayPoints.Length;
 
-        // ÇöÀç À§Ä¡ Ã¹¹øÂ° Ã¼Å©Æ÷ÀÎÆ®(½ÃÀÛÁ¡)
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ Ã¹ï¿½ï¿½Â° Ã¼Å©ï¿½ï¿½ï¿½ï¿½Æ®(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
         transform.position = wayPoints[currentIndex].position;
 
-        // ¿þÀÌ Æ÷ÀÎÆ® ÀÌµ¿ ÄÚ·çÆ¾ ÇÔ¼ö.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ìµï¿½ ï¿½Ú·ï¿½Æ¾ ï¿½Ô¼ï¿½.
         StartCoroutine(MoveTo());
     }
 
     private IEnumerator MoveTo()
     {
-        // ´ÙÀ½ µµÂøÁö °áÁ¤.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
         NextMoveTo();
 
         while (true)
@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour
             yield return null;
         }
     }
-    // ´ÙÀ½ µµÂøÁö °áÁ¤.
+
     private void NextMoveTo()
     {
        if(currentIndex < wayPointLength - 1)

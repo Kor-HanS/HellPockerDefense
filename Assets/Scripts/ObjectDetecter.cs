@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileDetecter : MonoBehaviour
+public class ObjectDetecter : MonoBehaviour
 {
     [SerializeField] 
     private TowerSpawner towerSpawner;
+    [SerializeField]
+    private TowerViewer TowerViewer;
 
     private Camera mainCam;
     private Ray ray;
@@ -27,24 +29,39 @@ public class TileDetecter : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
-            // ÇöÀç ray°¡ Áö³­ transformÀÌ tile ÅÂ±×¸¦ ´Þ°í, Å¸ÀÏ¿¡ Å¸¿ö°¡ °Ç¼³ ¾ÈµÇÀÖ´Ù.
+            // íƒ€ì›Œ ì§“ê¸° ì „, íƒ€ì›Œ ê±´ì„¤ ìœ„ì¹˜ ì €ìž¥.
             if (hit.transform.CompareTag("Tile") && !hit.transform.GetComponent<Tile>().IsBuildTower)
             {
                 towerSpawner.SetTowerPos(hit.transform);
                 TileToSpawnTower = hit.transform;
             }
+
             MousePos = Vector3.zero;
         }
     }
 
-    // Å¸¿ö Æ÷ÀÎÆ®°¡ Áö¾îÁ®ÀÖ´Â°÷¿¡, Å¸¿ö Áþ±â.
     public void GenerateTower(int cardHand)
     {
         towerSpawner.SpawnTower(this.TileToSpawnTower, cardHand);
         TileToSpawnTower = null;
     }
-}
 
-// Å¸ÀÏ µðÅØÅÍ ÄÄÆ÷³ÍÆ®
-// ÇÁ·ÎÆÛÆ¼ : towerSpawner ÄÄÆ÷³ÍÆ®
-// ÇÊµå . Ä«¸Þ¶ó, ray, raycast.
+    public void OnTowerClick(){
+        ray = mainCam.ScreenPointToRay(this.MousePos);
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            // íƒ€ì›Œ ì§“ê¸° ì „, íƒ€ì›Œ ê±´ì„¤ ìœ„ì¹˜ ì €ìž¥.
+            if(hit.transform.CompareTag("Tower")){
+                TowerViewer.OnPanel(hit.transform);
+            }
+
+            MousePos = Vector3.zero;
+        }
+        return;
+    }
+
+    public void OffTowerClick(){
+        TowerViewer.OffPanel();
+    }
+}

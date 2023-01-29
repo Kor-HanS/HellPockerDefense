@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
 
     private List<Enemy> enemyList;
 
-    public List<Enemy> EnemyList => enemyList; // get ÇÁ·ÎÆÛÆ¼
+    public List<Enemy> EnemyList => enemyList;
 
     private void Awake()
     {
@@ -25,7 +25,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void StartSpawnEnemy()
     {
-        StartCoroutine("EnemySpawn"); // 0.5ÃÊ¸¶´Ù Àû »ý¼º.
+        StartCoroutine("EnemySpawn"); // 0.5ï¿½Ê¸ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
     }
 
     public void StopSpawnEnemy()
@@ -43,7 +43,7 @@ public class EnemySpawner : MonoBehaviour
             enemyInstance.GetComponent<Enemy>().EnemyHp = GameManager.Instance.gameRound * 20;
             enemyList.Add(enemyInstance.GetComponent<Enemy>());
 
-            // 0.5ÃÊ¸¶´Ù Àû »ý¼º.
+            // 0.5ï¿½Ê¸ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
             yield return new WaitForSeconds(spawnTime);
         }
     }
@@ -53,6 +53,5 @@ public class EnemySpawner : MonoBehaviour
         enemyList.Remove(enemy);
         Destroy(enemy.gameObject);
     }
-
 
 }
