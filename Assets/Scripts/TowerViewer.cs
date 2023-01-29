@@ -18,6 +18,8 @@ public class TowerViewer : MonoBehaviour
     [SerializeField]
     private TMP_Text towerShootingRTextUI;
     [SerializeField]
+    private TMP_Text towerCardTextUI; 
+    [SerializeField]
     private Transform towerRangeUI;
 
     private void Awake(){
@@ -36,11 +38,14 @@ public class TowerViewer : MonoBehaviour
         string towerRangeText = string.Format("Range : {0:0.0}", nowTower.ShootRange);
         string towerDmgText = string.Format("Damage : {0:D2}", nowTower.Damage);
         string towerRateText = string.Format("Shooting Rate : {0:0.0}", nowTower.ShootSpeed);
+        string towerCardText = "Card : " + nowTower.TowerCardResult.ToString();
 
         towerLevelTextUI.SetText(towerLevelText);
         towerRangeTextUI.SetText(towerRangeText);
         towerDamageTextUI.SetText(towerDmgText);
         towerShootingRTextUI.SetText(towerRateText);
+        towerCardTextUI.SetText(towerCardText);
+
         towerRangeUI.position = towerTransform.position;
         towerRangeUI.localScale = Vector3.one * (2 * nowTower.ShootRange);
     }

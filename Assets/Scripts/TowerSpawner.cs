@@ -37,68 +37,68 @@ public class TowerSpawner : MonoBehaviour
             switch (cardHand)
             {
                 case 0:
-                    // �÷���
+                    towerInstance.TowerCardResult = CardHand.Flush;
                     towerInstance.Damage = 75;
                     break;
                 case 1:
-                    // ��Ƽ��
+                    towerInstance.TowerCardResult = CardHand.RoyalStraightFlush;
                     towerInstance.Damage = 180;
                     towerInstance.ShootRange = 5;
                     break;
                 case 2:
-                    // �齺��
+                    towerInstance.TowerCardResult = CardHand.BackStraightFlush;
                     towerInstance.Damage = 160;
                     towerInstance.ShootRange = 5;
                     break;
                 case 3:
-                    // ��Ʈ��
+                    towerInstance.TowerCardResult = CardHand.StraightFlush;
                     towerInstance.Damage = 140;
                     towerInstance.ShootRange = 5;
                     break;
                 case 4:
-                    // ��īǮ
+                    towerInstance.TowerCardResult = CardHand.FiveCardFlush;
                     towerInstance.Damage = 120;
                     towerInstance.ShootRange = 5;
                     break;
                 case 5:
-                    // ���̺�ī��
+                    towerInstance.TowerCardResult = CardHand.FiveCard;
                     towerInstance.Damage = 100;
                     towerInstance.ShootRange = 5;
                     break;
                 case 6:
-                    // ����ƾ
+                    towerInstance.TowerCardResult = CardHand.Mountain;
                     towerInstance.Damage = 80;
                     break;
                 case 7:
-                    // ��ī
+                    towerInstance.TowerCardResult = CardHand.FourCard;
                     towerInstance.Damage = 70;
                     break;
                 case 8:
-                    // �齺Ʈ����Ʈ
+                    towerInstance.TowerCardResult = CardHand.BackStraight;
                     towerInstance.Damage = 65;
                     break;
                 case 9:
-                    // ��Ʈ����Ʈ
+                    towerInstance.TowerCardResult = CardHand.Straight;
                     towerInstance.Damage = 60;
                     break;
                 case 10:
-                    // Ǯ�Ͽ콺
+                    towerInstance.TowerCardResult = CardHand.FullHouse;
                     towerInstance.Damage = 50;
                     break;
                 case 11:
-                    // Ʈ����
+                    towerInstance.TowerCardResult = CardHand.Triple;
                     towerInstance.Damage = 40;
                     break;
                 case 12:
-                    // �����
+                    towerInstance.TowerCardResult = CardHand.TwoPair;
                     towerInstance.Damage = 30;
                     break;
                 case 13:
-                    // �����
+                    towerInstance.TowerCardResult = CardHand.OnePair;
                     towerInstance.Damage = 20;
                     break;
                 case 14:
-                    // ž
+                    towerInstance.TowerCardResult = CardHand.Top;
                     towerInstance.Damage = 10;
                     break;
             }
@@ -108,6 +108,5 @@ public class TowerSpawner : MonoBehaviour
             Debug.Log("없는 패입니다.");
         }
     }
-
 
 }

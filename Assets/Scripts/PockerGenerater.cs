@@ -6,21 +6,21 @@ using TMPro;
 
 public enum CardHand
 {
-    Flush, // µ¥¹ÌÁö : 75
-    RoyalStraightFlush, // µ¥¹ÌÁö : 180
-    BackStraightFlush, // µ¥¹ÌÁö : 160 
-    StraightFlush, // µ¥¹ÌÁö : 140
-    FiveCardFlush, // µ¥¹ÌÁö : 120
-    FiveCard, // µ¥¹ÌÁö : 100
-    Mountain, // µ¥¹ÌÁö : 80
-    FourCard, // µ¥¹ÌÁö : 70
-    BackStraight, // µ¥¹ÌÁö : 65
-    Straight, // µ¥¹ÌÁö : 60
-    FullHouse, // µ¥¹ÌÁö : 50
-    Triple, // µ¥¹ÌÁö : 40
-    TwoPair, // µ¥¹ÌÁö : 30
-    OnePair, // µ¥¹ÌÁö : 20
-    Top // µ¥¹ÌÁö : 10
+    Flush, 
+    RoyalStraightFlush, 
+    BackStraightFlush,
+    StraightFlush,
+    FiveCardFlush,
+    FiveCard, 
+    Mountain,
+    FourCard, 
+    BackStraight,
+    Straight, 
+    FullHouse, 
+    Triple, 
+    TwoPair, 
+    OnePair, 
+    Top 
 };
 
 public class PockerGenerater : MonoBehaviour
@@ -31,16 +31,14 @@ public class PockerGenerater : MonoBehaviour
     private TMP_Text[] cardPlaces;
     private Card[] cardArray;
     private int towerCardHand = 0;
-    private int[] cardColors; // »¡, ÆÄ, ÃÊ, ³ë 
-    private int[] cardHands; // 7, 8, 9, 10, K, Q, J, A
+    private int[] cardColors; 
+    private int[] cardHands; 
 
     private void Awake()
     {
         cardArray = new Card[5];
     }
 
-
-    // »õ·Î¿î Ä«µå 5°³ »ı¼º.
     public void NewCards()
     {
         for(int i = 0; i < 5; i++)
@@ -50,15 +48,12 @@ public class PockerGenerater : MonoBehaviour
             cardPlaces[i].color = cardArray[i].CardColor;
         }
     }
-
-    // Ä«µå º¯°æ ¹öÆ° Å¬¸¯½Ã, Ä«µå º¯°æ.
     public void ChangeCards(int index)
     {
         cardArray[index] = new Card();
         cardPlaces[index].SetText(cardArray[index].CardChar);
         cardPlaces[index].color = cardArray[index].CardColor;
     }
-
     public int CheckCardHands()
     {
         cardColors = new int[4];
@@ -89,26 +84,26 @@ public class PockerGenerater : MonoBehaviour
 
         int maxCardNum = CharGetMax(cardHands);
 
-        // ÇÃ·¯½¬ ÆÇº°.
+        // ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½Çºï¿½.
         if (ColorGetMax(cardColors))
         {
             this.towerCardHand = (int)CardHand.Flush;
-            // ·ÎÆ¼ÇÃ ÆÇº°
+            // ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½Çºï¿½
             if (cardHands[3] == 1 && cardHands[4] == 1 && cardHands[5] == 1 && cardHands[6] == 1 && cardHands[7] == 1)
             {
                 this.towerCardHand = (int)CardHand.RoyalStraightFlush;
             }
-            // ¹é½ºÇÃ ÆÇº°
+            // ï¿½é½ºï¿½ï¿½ ï¿½Çºï¿½
             if (cardHands[0] == 1 && cardHands[1] == 1 && cardHands[2] == 1 && cardHands[3] == 1 && cardHands[7] == 1)
             {
                 this.towerCardHand = (int)CardHand.BackStraightFlush;
             }
-            // ½ºÆ®ÇÃ ÆÇº°
+            // ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Çºï¿½
             if (CheckStraight(cardHands))
             {
                 this.towerCardHand = (int)CardHand.StraightFlush;
             }
-            // ÆÄÄ«ÇÃ ÆÇº°
+            // ï¿½ï¿½Ä«ï¿½ï¿½ ï¿½Çºï¿½
             if (maxCardNum == 5)
             {
                 this.towerCardHand = (int)CardHand.FiveCardFlush;
@@ -117,36 +112,36 @@ public class PockerGenerater : MonoBehaviour
         else
         {
             this.towerCardHand = (int)CardHand.Top;
-            // ÆÄÄ« ÆÇº°
+            // ï¿½ï¿½Ä« ï¿½Çºï¿½
             if(maxCardNum == 5)
             {
                 this.towerCardHand = (int)CardHand.FiveCard;
             }
-            // ¸¶¿îÆ¾ ÆÇº°
+            // ï¿½ï¿½ï¿½ï¿½Æ¾ ï¿½Çºï¿½
             if(cardHands[3] == 1 && cardHands[4] == 1 && cardHands[5] == 1 && cardHands[6] == 1 && cardHands[7] == 1)
             {
                 this.towerCardHand = (int)CardHand.Mountain;
             }
-            // Æ÷Ä« ÆÇº°
+            // ï¿½ï¿½Ä« ï¿½Çºï¿½
             if(maxCardNum == 4)
             {
                 this.towerCardHand = (int)CardHand.FourCard;
             }
-            // ¹é½ºÆ® ÆÇº°
+            // ï¿½é½ºÆ® ï¿½Çºï¿½
             if(cardHands[0] == 1 && cardHands[1] == 1 && cardHands[2] == 1 && cardHands[3] == 1 && cardHands[7] == 1)
             {
                 this.towerCardHand = (int)CardHand.BackStraight;
             }
-            // ½ºÆ® ÆÇº°
+            // ï¿½ï¿½Æ® ï¿½Çºï¿½
             if (CheckStraight(cardHands))
             {
                 this.towerCardHand = (int)CardHand.Straight;
             }
-            // Æ®¸®ÇÃ ÆÇº° - Ç®ÇÏ¿ì½º ÆÇº°
+            // Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½Çºï¿½ - Ç®ï¿½Ï¿ì½º ï¿½Çºï¿½
             if(maxCardNum == 3)
             {
                 this.towerCardHand = (int)CardHand.Triple;
-                // µÎ°³°¡ °°Àº ÆĞ°¡ ÀÖ´Ù¸é Ç®ÇÏ¿ì½º
+                // ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ°ï¿½ ï¿½Ö´Ù¸ï¿½ Ç®ï¿½Ï¿ì½º
                 for(int i = 0; i < cardHands.Length; i++)
                 {
                     if(cardHands[i] == 2)
@@ -155,7 +150,7 @@ public class PockerGenerater : MonoBehaviour
                     }
                 }
             }
-            // ÅõÆä¾î ÆÇº° - ÅõÆä¾î ÆÇº°
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Çºï¿½ - ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Çºï¿½
             if(maxCardNum == 2)
             {
                 int num2 = 0;
@@ -174,8 +169,6 @@ public class PockerGenerater : MonoBehaviour
         }
         return this.towerCardHand;
     }
-
-    // »ö±ò ÃÖ´ë¼ö Ã¼Å©.
     private bool ColorGetMax(int[] cardColors)
     {
         for (int i = 0; i < 4; i++)
@@ -187,7 +180,6 @@ public class PockerGenerater : MonoBehaviour
         }
         return false;
     }
-    // Ä«µå °°Àº°Å ÃÖ´ë¼ö Ã¼Å©.
     private int CharGetMax(int[] cardHands)
     {
         int tempMax = 0;
@@ -202,19 +194,16 @@ public class PockerGenerater : MonoBehaviour
     }
     private bool CheckStraight(int[] cardHands)
     {
-        // J ½ºÆ®
         if(cardHands[0] == 1 && cardHands[1] == 1 && cardHands[2] == 1 && cardHands[3] == 1 && cardHands[6] == 1)
         {
             return true;
         }
 
-        // Q ½ºÆ®
         if(cardHands[1] == 1 && cardHands[2] == 1 && cardHands[3] == 1 && cardHands[5] == 1 && cardHands[6] == 1)
         {
             return true;
         }
 
-        // K ½ºÆ®
         if (cardHands[2] == 1 && cardHands[3] == 1 && cardHands[4] == 1 && cardHands[5] == 1 && cardHands[6] == 1)
         {
             return true;
@@ -222,6 +211,4 @@ public class PockerGenerater : MonoBehaviour
 
         return false;
     }
-
-   
 }

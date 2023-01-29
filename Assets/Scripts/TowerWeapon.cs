@@ -16,8 +16,8 @@ public class TowerWeapon : MonoBehaviour
     private float attackRange = 5.0f;
     public int WeaponDamage { get; set; }
 
-    private WeaponState weaponState = WeaponState.SearchTarget; // 타워 무기 상태.
-    private Transform attackTarget = null; // 공격대상
+    private WeaponState weaponState = WeaponState.SearchTarget;
+    private Transform attackTarget = null; 
     private EnemySpawner enemySpawner;
 
     private void Awake()
@@ -27,29 +27,25 @@ public class TowerWeapon : MonoBehaviour
         ChangeState(WeaponState.SearchTarget);
     }
 
-    public void ChangeState(WeaponState newState)
-    {
-        // 이전에 재생중인 상태 종료.
-        StopCoroutine(weaponState.ToString());
-        weaponState = newState;
-        // 새로운 상태 실행.
-        StartCoroutine(weaponState.ToString());
-    }
-
     private void Update()
     {
         if(attackTarget != null)
         {
-            // 적을 따라가면서 바라보게 하기.
             RotateToTarget();
         }
+    }
+
+    public void ChangeState(WeaponState newState)
+    {
+        StopCoroutine(weaponState.ToString());
+        weaponState = newState;
+        StartCoroutine(weaponState.ToString());
     }
 
     public void RotateToTarget()
     {
         float dx = attackTarget.position.x - transform.position.x;
         float dy = attackTarget.position.y - transform.position.y;
-        // 각도 라디안 단위
 
         float degree = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, degree);
