@@ -9,9 +9,7 @@ public class EnemySpawner : MonoBehaviour
 
     [SerializeField]
     private Transform[] wayPoints;
-
-    [SerializeField]
-    private float spawnTime;
+    private float spawnTime = 0.5f;
 
     private List<Enemy> enemyList;
 
@@ -43,8 +41,7 @@ public class EnemySpawner : MonoBehaviour
             enemyInstance.GetComponent<Enemy>().EnemyHp = GameManager.Instance.gameRound * 20;
             enemyList.Add(enemyInstance.GetComponent<Enemy>());
 
-            // 0.5�ʸ��� �� ����.
-            yield return new WaitForSeconds(spawnTime);
+            yield return GameManager.WaitForClass.WaitForSeconds(spawnTime);
         }
     }
 

@@ -6,6 +6,21 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    internal static class WaitForClass{
+        public static readonly WaitForEndOfFrame WaitForEndOfFrame = new WaitForEndOfFrame();
+        public static readonly WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
+
+        public static WaitForSeconds WaitForSeconds(float seconds){
+            WaitForSeconds WaitForSecondsRet = new WaitForSeconds(seconds);
+            return WaitForSecondsRet;
+        }
+
+        public static WaitForSecondsRealtime WaitForSecondsRealtime(float seconds){
+            WaitForSecondsRealtime WaitForSecondsRealtimeRet = new WaitForSecondsRealtime(seconds);
+            return WaitForSecondsRealtimeRet; 
+        }
+    }
+
     [SerializeField]
     private PockerGenerater pockerGeneraterGM;
     public PockerGenerater PockerGeneraterGM => pockerGeneraterGM;
