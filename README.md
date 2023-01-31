@@ -33,6 +33,7 @@ GameObjectBrush 를 통한 WayPoints 그리기 -> Enemy.cs 에서 Setup함수로
 10. 투사체 (Projectile.cs) -> Setup 함수를 타워 component 에서 카드패에 따라 다르게 가지고 있는 여러 필드중 데미지 받아서 씀.
 
 (미 구현)
+
 11. 적 Hp 게이지 구현. Slider Ui
 
 12. 적을 죽이면 얻는 돈으로 타워 powerup 구현 및 돈이 없는데, 적 흘리면 게임 종료.
