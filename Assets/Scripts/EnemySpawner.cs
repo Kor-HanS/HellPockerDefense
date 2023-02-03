@@ -1,29 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
     private GameObject EnemyPrefab;
+    [SerializeField]
+    private GameObject EnemyHpBarPrefab;
 
     [SerializeField]
     private Transform[] wayPoints;
-    private float spawnTime = 0.5f;
+    private float spawnTime = 1.0f;
 
     private List<Enemy> enemyList;
+    private List<GameObject> enemyHpBarList;
 
     public List<Enemy> EnemyList => enemyList;
+    public List<GameObject> EnemyHpBarList => enemyHpBarList;
+
 
     private void Awake()
     {
         enemyList = new List<Enemy>();
+        enemyHpBarList = new List<GameObject>();
     }
-
 
     public void StartSpawnEnemy()
     {
-        StartCoroutine("EnemySpawn"); // 0.5�ʸ��� �� ����.
+        StartCoroutine("EnemySpawn");
     }
 
     public void StopSpawnEnemy()
@@ -31,15 +37,24 @@ public class EnemySpawner : MonoBehaviour
         StopCoroutine("EnemySpawn");
     }
 
-
     IEnumerator EnemySpawn()
     {
         while(true)
         {
-            GameObject enemyInstance = Instantiate(EnemyPrefab);
-            enemyInstance.GetComponent<Enemy>().SetWayPoints(wayPoints);
-            enemyInstance.GetComponent<Enemy>().EnemyHp = GameManager.Instance.gameRound * 20;
-            enemyList.Add(enemyInstance.GetComponent<Enemy>());
+            Enemy enemyInstance = Instantiate(EnemyPrefab).GetComponent<Enemy>();
+            GameObject enemyHpBarInstance = Instantiate(EnemyHpBarPrefab);
+
+            enemyInstance.SetHpBar(enemyHpBarInstance);
+            enemyInstance.SetWayPoints(wayPoints);
+            enemyInstance.EnemyMaxHp = GameManager.Instance.gameRound * 20;
+            enemyInstance.EnemyHp = enemyInstance.EnemyMaxHp;
+
+            enemyHpBarInstance.transform.SetParent(GameManager.Instance.CanvasTransform);
+            enemyHpBarInstance.transform.localScale = Vector3.one;
+            enemyHpBarInstance.GetComponent<Slider>().value =  1;
+
+            enemyList.Add(enemyInstance);
+            enemyHpBarList.Add(enemyHpBarInstance);
 
             yield return GameManager.WaitForClass.WaitForSeconds(spawnTime);
         }
@@ -47,8 +62,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void DestroyEnenmy(Enemy enemy)
     {
-        enemyList.Remove(enemy);
-        Destroy(enemy.gameObject);
+        enemy.OnDie();
     }
 
 }

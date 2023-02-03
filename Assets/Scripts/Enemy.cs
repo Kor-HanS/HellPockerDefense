@@ -1,40 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField]
-    GameObject hpBarPrefab;
-
     private Movement2D movement2D;
-    private Transform[] wayPoints; 
+    private Transform[] wayPoints;
+    private GameObject hpBar;
+    private RectTransform hpBarRectTransform; 
     private int wayPointLength;
     private int currentIndex = 0;
 
-    public int EnemyHp { get; set; }
+    private Vector3 offset;
+
+    public float EnemyHp { get; set; }
+    public float EnemyMaxHp {get; set;}
 
     private void Awake()
     {
         movement2D = GetComponent<Movement2D>();
+        offset = new Vector3(0,-20f,0);
     }
 
-    public void SetWayPoints(Transform[] wayPoints)
-    {
-        this.wayPoints = new Transform[wayPoints.Length];
-        this.wayPoints = wayPoints;
-        this.wayPointLength = wayPoints.Length;
-
-        // ���� ��ġ ù��° üũ����Ʈ(������)
-        transform.position = wayPoints[currentIndex].position;
-
-        // ���� ����Ʈ �̵� �ڷ�ƾ �Լ�.
-        StartCoroutine(MoveTo());
+    private void LateUpdate() {
+        hpBarFollowObj();
     }
 
     private IEnumerator MoveTo()
     {
-        // ���� ������ ����.
         NextMoveTo();
 
         while (true)
@@ -49,6 +43,8 @@ public class Enemy : MonoBehaviour
             yield return null;
         }
     }
+
+    
 
     private void NextMoveTo()
     {
@@ -65,15 +61,37 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void OnDie()
-    {
+    private void hpBarFollowObj(){
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(transform.position);
+
+        this.hpBarRectTransform.position = screenPos + offset;
+    }
+
+    public void SetWayPoints(Transform[] wayPoints){
+        this.wayPoints = new Transform[wayPoints.Length];
+        this.wayPoints = wayPoints;
+        this.wayPointLength = wayPoints.Length;
+
+        transform.position = wayPoints[currentIndex].position;
+
+        StartCoroutine(MoveTo());
+    }
+
+    public void SetHpBar(GameObject hpBar){
+        this.hpBar = hpBar;
+        this.hpBarRectTransform = hpBar.GetComponent<RectTransform>();
+    }
+
+    public void OnDie(){
+        GameManager.Instance.EnemySpawnerGM.EnemyHpBarList.Remove(this.hpBar);
         GameManager.Instance.EnemySpawnerGM.EnemyList.Remove(this);
+        Destroy(this.hpBar.gameObject);
         Destroy(gameObject);
     }
 
-    public void TakeDamage(int damage)
-    {
+    public void TakeDamage(float damage){
         EnemyHp -= damage;
+        hpBar.GetComponent<Slider>().value = EnemyHp / EnemyMaxHp;
         if(EnemyHp <= 0)
         {
             OnDie();

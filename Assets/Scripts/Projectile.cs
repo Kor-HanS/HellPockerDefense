@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour
 {
     private Movement2D movement2d;
     private Transform target;
-    private int damage;
+    private float damage;
     private void Update()
     {
         if(target != null)
@@ -29,7 +29,7 @@ public class Projectile : MonoBehaviour
         collision.GetComponent<Enemy>().TakeDamage(damage);
     }
     
-    public void Setup(Transform target, int damage)
+    public void Setup(Transform target, float damage)
     {
         movement2d = GetComponent<Movement2D>();
         this.target = target;

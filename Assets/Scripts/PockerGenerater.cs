@@ -6,21 +6,7 @@ using TMPro;
 
 public enum CardHand
 {
-    Flush, 
-    RoyalStraightFlush, 
-    BackStraightFlush,
-    StraightFlush,
-    FiveCardFlush,
-    FiveCard, 
-    Mountain,
-    FourCard, 
-    BackStraight,
-    Straight, 
-    FullHouse, 
-    Triple, 
-    TwoPair, 
-    OnePair, 
-    Top 
+    Flush, RoyalStraightFlush, BackStraightFlush,StraightFlush,FiveCardFlush,FiveCard, Mountain,FourCard, BackStraight,Straight, FullHouse, Triple, TwoPair, OnePair, Top 
 };
 
 public class PockerGenerater : MonoBehaviour
@@ -84,26 +70,21 @@ public class PockerGenerater : MonoBehaviour
 
         int maxCardNum = CharGetMax(cardHands);
 
-        // �÷��� �Ǻ�.
         if (ColorGetMax(cardColors))
         {
             this.towerCardHand = (int)CardHand.Flush;
-            // ��Ƽ�� �Ǻ�
             if (cardHands[3] == 1 && cardHands[4] == 1 && cardHands[5] == 1 && cardHands[6] == 1 && cardHands[7] == 1)
             {
                 this.towerCardHand = (int)CardHand.RoyalStraightFlush;
             }
-            // �齺�� �Ǻ�
             if (cardHands[0] == 1 && cardHands[1] == 1 && cardHands[2] == 1 && cardHands[3] == 1 && cardHands[7] == 1)
             {
                 this.towerCardHand = (int)CardHand.BackStraightFlush;
             }
-            // ��Ʈ�� �Ǻ�
             if (CheckStraight(cardHands))
             {
                 this.towerCardHand = (int)CardHand.StraightFlush;
             }
-            // ��ī�� �Ǻ�
             if (maxCardNum == 5)
             {
                 this.towerCardHand = (int)CardHand.FiveCardFlush;
@@ -112,36 +93,29 @@ public class PockerGenerater : MonoBehaviour
         else
         {
             this.towerCardHand = (int)CardHand.Top;
-            // ��ī �Ǻ�
             if(maxCardNum == 5)
             {
                 this.towerCardHand = (int)CardHand.FiveCard;
             }
-            // ����ƾ �Ǻ�
             if(cardHands[3] == 1 && cardHands[4] == 1 && cardHands[5] == 1 && cardHands[6] == 1 && cardHands[7] == 1)
             {
                 this.towerCardHand = (int)CardHand.Mountain;
             }
-            // ��ī �Ǻ�
             if(maxCardNum == 4)
             {
                 this.towerCardHand = (int)CardHand.FourCard;
             }
-            // �齺Ʈ �Ǻ�
             if(cardHands[0] == 1 && cardHands[1] == 1 && cardHands[2] == 1 && cardHands[3] == 1 && cardHands[7] == 1)
             {
                 this.towerCardHand = (int)CardHand.BackStraight;
             }
-            // ��Ʈ �Ǻ�
             if (CheckStraight(cardHands))
             {
                 this.towerCardHand = (int)CardHand.Straight;
             }
-            // Ʈ���� �Ǻ� - Ǯ�Ͽ콺 �Ǻ�
             if(maxCardNum == 3)
             {
                 this.towerCardHand = (int)CardHand.Triple;
-                // �ΰ��� ���� �а� �ִٸ� Ǯ�Ͽ콺
                 for(int i = 0; i < cardHands.Length; i++)
                 {
                     if(cardHands[i] == 2)
@@ -150,7 +124,6 @@ public class PockerGenerater : MonoBehaviour
                     }
                 }
             }
-            // ����� �Ǻ� - ����� �Ǻ�
             if(maxCardNum == 2)
             {
                 int num2 = 0;

@@ -38,6 +38,10 @@ public class GameManager : MonoBehaviour
     public ObjectDetecter ObjectDetecterGM => objectDetecterGM;
 
     [SerializeField]
+    private Transform canvasTransform;
+    public Transform CanvasTransform => canvasTransform;
+
+    [SerializeField]
     private Button btn_RoundStart;
     [SerializeField]
     private Button[] btn_CardChange;
