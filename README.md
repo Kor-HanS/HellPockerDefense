@@ -34,9 +34,13 @@ GameObjectBrush 를 통한 WayPoints 그리기 -> Enemy.cs 에서 Setup함수로
    
 10. 투사체 (Projectile.cs) -> Setup 함수를 타워 component 에서 카드패에 따라 다르게 가지고 있는 여러 필드중 데미지 받아서 씀.
 
-(미 구현)
+11. 적 Hp 게이지 구현. Slider Ui 
+- UI 오브젝트들. hpBar 같은것들 캔버스 밑에 자식으로 있지 않으면 화면상에 안나옴. (새로 알게 된 것) 
+- Slider 컴포넌트 value 값 을 통해 적의 남은 Hp 화면상에서 확인 가능.
+- Enemy.cs에 화면에 올라오는 hpBar 오브젝트 및 적의 maxHp/currentHp 필드로 추가
+- EnemySpawer.cs 에서 적의 체력바 리스트 필드로 추가 및 관리. Enemy 오브젝트 생성시, 체력바도 같이 생성하고, Enemy.cs에 Setup 함수로 값 주기. 
 
-11. 적 Hp 게이지 구현. Slider Ui
+(미 구현)
 
 12. 적을 죽이면 얻는 돈으로 타워 powerup 구현 및 돈이 없는데, 적 흘리면 게임 종료.
 
