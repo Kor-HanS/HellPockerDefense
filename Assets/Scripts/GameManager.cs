@@ -1,8 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -52,7 +53,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private TMP_Text enemyNumUI;
     [SerializeField]
+    private TMP_Text moneyNumUI;
+    [SerializeField]
     private float waitCardSelectTime = 180f;
+    public int Money{get ; set;}
 
     private static GameManager instance;
     public static GameManager Instance
@@ -84,10 +88,15 @@ public class GameManager : MonoBehaviour
         btn_CardChange[4].onClick.AddListener(delegate { CardChangeBtnClick(4); });
 
         btn_RoundStart.onClick.AddListener(RoundStartBtnClick);
+
+        this.Money = 10;
     }
 
     private void Update()
     {
+        // 게임 오버 여부 체크.
+        CheckGameOver();
+
         // 타워 정보 출력.
         if(Input.GetKeyDown(KeyCode.Escape)){ObjectDetecterGM.OffTowerClick();}
         
@@ -99,6 +108,8 @@ public class GameManager : MonoBehaviour
         TimerUISetting();
 
         EnemyNumUISetting();
+
+        MoneyNumUISetting();
         
         if (isRoundDone && !isCardSetting)
         {
@@ -133,7 +144,7 @@ public class GameManager : MonoBehaviour
             isTowerPointSet = false;
         }
 
-        if(!isRoundDone && timerRound >= 10)
+        if(!isRoundDone && timerRound >= 15)
         {
            EnemySpawnerGM.StopSpawnEnemy();
         }
@@ -212,4 +223,16 @@ public class GameManager : MonoBehaviour
         string enmyUiString = string.Format("{0:D2}", count);
         enemyNumUI.SetText(enmyUiString);
     }
+
+    void MoneyNumUISetting(){
+        string moneyUiString = string.Format("{0:D2}", this.Money);
+        moneyNumUI.SetText(moneyUiString);
+    }   
+
+    void CheckGameOver(){
+        if(this.Money < 0){
+            SceneManager.LoadScene("Scene_GameOver");
+        }
+    }
+
 }

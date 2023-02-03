@@ -38,11 +38,11 @@ public class TowerSpawner : MonoBehaviour
             {
                 case 0:
                     towerInstance.TowerCardResult = CardHand.Flush;
-                    towerInstance.Damage = 75;
+                    towerInstance.Damage = 87;
                     break;
                 case 1:
                     towerInstance.TowerCardResult = CardHand.RoyalStraightFlush;
-                    towerInstance.Damage = 180;
+                    towerInstance.Damage = 190;
                     towerInstance.ShootRange = 5;
                     break;
                 case 2:
@@ -57,49 +57,49 @@ public class TowerSpawner : MonoBehaviour
                     break;
                 case 4:
                     towerInstance.TowerCardResult = CardHand.FiveCardFlush;
-                    towerInstance.Damage = 120;
+                    towerInstance.Damage = 170;
                     towerInstance.ShootRange = 5;
                     break;
                 case 5:
                     towerInstance.TowerCardResult = CardHand.FiveCard;
-                    towerInstance.Damage = 100;
+                    towerInstance.Damage = 120;
                     towerInstance.ShootRange = 5;
                     break;
                 case 6:
                     towerInstance.TowerCardResult = CardHand.Mountain;
-                    towerInstance.Damage = 80;
+                    towerInstance.Damage = 76;
                     break;
                 case 7:
                     towerInstance.TowerCardResult = CardHand.FourCard;
-                    towerInstance.Damage = 70;
+                    towerInstance.Damage = 64;
                     break;
                 case 8:
                     towerInstance.TowerCardResult = CardHand.BackStraight;
-                    towerInstance.Damage = 65;
+                    towerInstance.Damage = 66;
                     break;
                 case 9:
                     towerInstance.TowerCardResult = CardHand.Straight;
-                    towerInstance.Damage = 60;
+                    towerInstance.Damage = 51;
                     break;
                 case 10:
                     towerInstance.TowerCardResult = CardHand.FullHouse;
-                    towerInstance.Damage = 50;
+                    towerInstance.Damage = 46;
                     break;
                 case 11:
                     towerInstance.TowerCardResult = CardHand.Triple;
-                    towerInstance.Damage = 40;
+                    towerInstance.Damage = 30;
                     break;
                 case 12:
                     towerInstance.TowerCardResult = CardHand.TwoPair;
-                    towerInstance.Damage = 30;
+                    towerInstance.Damage = 20;
                     break;
                 case 13:
                     towerInstance.TowerCardResult = CardHand.OnePair;
-                    towerInstance.Damage = 20;
+                    towerInstance.Damage = 10;
                     break;
                 case 14:
                     towerInstance.TowerCardResult = CardHand.Top;
-                    towerInstance.Damage = 10;
+                    towerInstance.Damage = 0;
                     break;
             }
         }

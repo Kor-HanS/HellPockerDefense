@@ -57,6 +57,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+            // 맵의 마지막까지 갈 동안 적을 처치 못함.
             GameManager.Instance.EnemySpawnerGM.DestroyEnenmy(this);
         }
     }

@@ -36,7 +36,7 @@ public class TowerViewer : MonoBehaviour
         Tower nowTower = towerTransform.GetComponent<Tower>();
         string towerLevelText = string.Format("Level : {0:D2}", nowTower.Level);
         string towerRangeText = string.Format("Range : {0:0.0}", nowTower.ShootRange);
-        string towerDmgText = string.Format("Damage : {0:D2}", nowTower.Damage);
+        string towerDmgText = string.Format("Damage : {0:0}", nowTower.Damage);
         string towerRateText = string.Format("Shooting Rate : {0:0.0}", nowTower.ShootSpeed);
         string towerCardText = "Card : " + nowTower.TowerCardResult.ToString();
 

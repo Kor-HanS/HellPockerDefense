@@ -62,6 +62,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void DestroyEnenmy(Enemy enemy)
     {
+        GameManager.Instance.Money -= 1;
         enemy.OnDie();
     }
 
