@@ -4,9 +4,8 @@
 https://www.youtube.com/watch?v=gH7zsOmGW0Q&list=PLC2Tit6NyVicvqMTDJl8e-2IB4v_I7ddd&index=8
 
 1. Ray / RayCastHit 을 이용한 타일 및 타워 인식 (Objectdetecter.cs) (새로 알게 된 것)
-
-1-1. 타워 중복 생성 방지(Tile.cs)
-1-2. 타워 정보 출력(TowerVier.cs)
+-타워 중복 생성 방지(Tile.cs)
+-타워 정보 출력(TowerVier.cs)
 
 2. 라운드 시작 / 라운드 종료 / 타워 생성 시간 / 포커 패 세팅 전반적인 게임 흐름 구현.
 
@@ -23,20 +22,19 @@ https://www.youtube.com/watch?v=gH7zsOmGW0Q&list=PLC2Tit6NyVicvqMTDJl8e-2IB4v_I7
 코루틴 함수로 spawnTime 줘서 적 스폰 시키는것. (새로 알게 된 것)
 
 8. 타일 및 타일 팔레트를 통한 타워디펜스 맵 구현
-타일 팔레트로 타일 그리기 / RuleTile 만들기 (새로 알게 된 것) 
-GameObjectBrush 를 통한 WayPoints 그리기 -> Enemy.cs 에서 Setup함수로 wayPoints 배열 받고 타일 이동시키기. (새로 알게 된 것)
+-타일 팔레트로 타일 그리기 / RuleTile 만들기 (새로 알게 된 것) 
+-GameObjectBrush 를 통한 WayPoints 그리기 -> Enemy.cs 에서 Setup함수로 wayPoints 배열 받고 타일 이동시키기. (새로 알게 된 것)
 
 9. (GameManager.cs) 싱글톤 패턴으로 구현시키기. -> 디자인 패턴 책 보고 만들어 보려고 했음.
    잘 된것인지도 잘 모르겟음. 씬이 한개 밖에 없는 게임이라. 
-   결론적으로, 런 타임내내 인스턴스 1개 유지되고 있고, GameManager내 public static 변수로 본인을 인스턴스로 받고, 다른 클래스에서 접근 가능하게 만듬.
-   
-9-1. 게임 매니저내 내부 클래스 WaitForClass 구현 -> 코루틴 함수 yieldInstruction new 연산 최적화.
+   결론적으로, 런 타임내내 인스턴스 1개 유지되고 있고, GameManager내 public static 변수로 본인을 인스턴스로 받고, 다른 클래스에서 접근 가능하게 만듬.  
+-게임 매니저내 내부 클래스 WaitForClass 구현 -> 코루틴 함수 yieldInstruction new 연산 최적화.
    
 10. 투사체 (Projectile.cs) -> Setup 함수를 타워 component 에서 카드패에 따라 다르게 가지고 있는 여러 필드중 데미지 받아서 씀.
 
 11. 적 Hp 게이지 구현. Slider Ui 
 - UI 오브젝트들. hpBar 같은것들 캔버스 밑에 자식으로 있지 않으면 화면상에 안나옴. (새로 알게 된 것) 
-- Slider 컴포넌트 value 값 을 통해 적의 남은 Hp 화면상에서 확인 가능.
+- Slider 컴포넌트 value 값 을 통해 적의 남은 Hp 화면상에서 확인 가능. (새로 알게 된 것) 
 - Enemy.cs에 화면에 올라오는 hpBar 오브젝트 및 적의 maxHp/currentHp 필드로 추가
 - EnemySpawer.cs 에서 적의 체력바 리스트 필드로 추가 및 관리. Enemy 오브젝트 생성시, 체력바도 같이 생성하고, Enemy.cs에 Setup 함수로 값 주기. 
 
