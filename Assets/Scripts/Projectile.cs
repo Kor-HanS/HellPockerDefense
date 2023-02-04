@@ -7,6 +7,12 @@ public class Projectile : MonoBehaviour
     private Movement2D movement2d;
     private Transform target;
     private float damage;
+    private Animator animator;
+
+    private void Awake() {
+        animator = GetComponent<Animator>();
+    }
+
     private void Update()
     {
         if(target != null)
@@ -24,7 +30,6 @@ public class Projectile : MonoBehaviour
     {
         if (!collision.CompareTag("Enemy")) return;
         if (collision.transform != target) return;
-
         Destroy(gameObject);
         collision.GetComponent<Enemy>().TakeDamage(damage);
     }

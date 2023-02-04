@@ -43,6 +43,9 @@ public class GameManager : MonoBehaviour
     public Transform CanvasTransform => canvasTransform;
 
     [SerializeField]
+    private TMP_Text systemText;
+
+    [SerializeField]
     private Button btn_RoundStart;
     [SerializeField]
     private Button[] btn_CardChange;
@@ -161,6 +164,7 @@ public class GameManager : MonoBehaviour
 
     public void NewCardSetting()
     {
+        PrintSystemText(1);
         timerRound = 0.0f;
         for (int i = 0; i < 5; i++)
         {
@@ -173,12 +177,19 @@ public class GameManager : MonoBehaviour
 
     public void RoundStart()
     {
+        PrintSystemText(1);
         timerRound = 0.0f;
         for (int i = 0; i < 5; i++)
         {
             btn_CardChange[i].interactable = false;
         }
-        EnemySpawnerGM.StartSpawnEnemy();
+
+        // 보스 라운드 구현.
+        if((gameRound % 5) == 0){
+            
+        }else{
+            EnemySpawnerGM.StartSpawnEnemy();
+        }
         this.isRoundDone = false; this.isTowerSelected = false;
     }
 
@@ -235,4 +246,37 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void PrintSystemText(int caseNum){
+        switch(caseNum){
+            case 1:
+                systemText.text = "SYSTEM: ROUND START!";
+                systemText.alpha = 1; 
+                break;
+            
+            case 2 :
+                systemText.text = "SYSTEM: PICK TOWER PLACE &  POCKER CARD !";
+                systemText.alpha = 1;  
+                break;
+
+            case 3 :
+                systemText.text = "SYSTEM: 포커 패를 고르세요!";
+                systemText.alpha = 1;  
+                break;
+        }
+        StartCoroutine(SystemTextFadeOut());
+    }
+
+    private IEnumerator SystemTextFadeOut(){
+        float currentTime = 0f;
+        float percent = 0f;
+
+        while(percent < 1){
+            currentTime += Time.deltaTime;
+            percent = currentTime / 5.0f; 
+
+            systemText.alpha = Mathf.Lerp(1,0,percent);
+
+            yield return null;
+        }
+    }
 }

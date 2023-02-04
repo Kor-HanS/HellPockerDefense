@@ -47,7 +47,12 @@ public class TowerViewer : MonoBehaviour
         towerCardTextUI.SetText(towerCardText);
 
         towerRangeUI.position = towerTransform.position;
+
+        // 타워 공격 범위 절대적 크기
+        Transform parent = towerRangeUI.parent;
+        towerRangeUI.parent = null;
         towerRangeUI.localScale = Vector3.one * (2 * nowTower.ShootRange);
+        towerRangeUI.parent = parent;
     }
 
     public void OffPanel(){

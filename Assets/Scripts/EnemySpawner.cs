@@ -32,6 +32,11 @@ public class EnemySpawner : MonoBehaviour
         StartCoroutine("EnemySpawn");
     }
 
+    public void SpawnBossEnemy(){
+        
+    }
+
+
     public void StopSpawnEnemy()
     {
         StopCoroutine("EnemySpawn");

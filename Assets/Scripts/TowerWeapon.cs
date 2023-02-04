@@ -103,7 +103,7 @@ public class TowerWeapon : MonoBehaviour
 
     private void SpawnProjectile()
     {
-        GameObject clone = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity);
+        GameObject clone = Instantiate(projectilePrefab, spawnPoint.position, transform.rotation);
         clone.GetComponent<Projectile>().Setup(attackTarget,GetComponent<Tower>().Damage * GetComponent<Tower>().Level); // 레벨 1 데미지 1배, 레벨 2 데미지 2배, 레벨 3 데미지 3배.
     }
 }
