@@ -145,7 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 5746775314878864020, guid: c4d51b2fbc9e62b4b9260742713f50ef, type: 3}
   spawnPoint: {fileID: 498171887755624711}
-  attackRate: 0.5
+  attackRate: 1
   attackRange: 3
 --- !u!65 &-8671802297035766644
 BoxCollider:

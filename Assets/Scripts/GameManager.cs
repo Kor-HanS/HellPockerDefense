@@ -164,7 +164,7 @@ public class GameManager : MonoBehaviour
 
     public void NewCardSetting()
     {
-        PrintSystemText(1);
+        PrintSystemText(2);
         timerRound = 0.0f;
         for (int i = 0; i < 5; i++)
         {
@@ -255,11 +255,6 @@ public class GameManager : MonoBehaviour
             
             case 2 :
                 systemText.text = "SYSTEM: PICK TOWER PLACE &  POCKER CARD !";
-                systemText.alpha = 1;  
-                break;
-
-            case 3 :
-                systemText.text = "SYSTEM: 포커 패를 고르세요!";
                 systemText.alpha = 1;  
                 break;
         }
