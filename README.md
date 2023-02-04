@@ -41,9 +41,16 @@ https://www.youtube.com/watch?v=gH7zsOmGW0Q&list=PLC2Tit6NyVicvqMTDJl8e-2IB4v_I7
 12. 타워 업그레이드 수단 이자, 목숨인 돈 UI 추가. -> 돈이 0보다 적어질시, 게임 종료 게임종료 로직 추가.
 - 게임종료 조건시, 게임 종료 씬으로 전환.
 
+13. 시스템 메세지 추가.(알파값 으로 text 보여주고 안보여주기.) (새로 알게 된 것) 
+- 타워 사격 범위 localScale 값 바꾸는거 -> 절대적 크기로 바꿈. parent null로 주고. localScale 바꾸고 다시 parent 붙이기.
+- 라운드 시작 / 타워 생성 시간 시스템 메세지 출력
+
+14. 투사체 에셋 변경. 
+에셋 출처 : https://pimen.itch.io/fire-spell
+
 (미 구현)
 
-13. 타워 업그레이드 구현.(투사체 데미지 : 타워 레벨 x 타워 카드패 데미지)
+15. 타워 업그레이드 구현.(투사체 데미지 : 타워 레벨 x 타워 카드패 데미지)
 
 23 - 01 - 25
 ![image](https://user-images.githubusercontent.com/99121615/213970803-e37a96ae-ce48-40ac-b77a-676a9ce32727.png)
