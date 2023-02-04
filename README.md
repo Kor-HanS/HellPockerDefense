@@ -38,12 +38,22 @@ https://www.youtube.com/watch?v=gH7zsOmGW0Q&list=PLC2Tit6NyVicvqMTDJl8e-2IB4v_I7
 - Enemy.cs에 화면에 올라오는 hpBar 오브젝트 및 적의 maxHp/currentHp 필드로 추가
 - EnemySpawer.cs 에서 적의 체력바 리스트 필드로 추가 및 관리. Enemy 오브젝트 생성시, 체력바도 같이 생성하고, Enemy.cs에 Setup 함수로 값 주기. 
 
+12. 타워 업그레이드 수단 이자, 목숨인 돈 UI 추가. -> 돈이 0보다 적어질시, 게임 종료 게임종료 로직 추가.
+- 게임종료 조건시, 게임 종료 씬으로 전환.
+
 (미 구현)
 
-12. 적을 죽이면 얻는 돈으로 타워 powerup 구현 및 돈이 없는데, 적 흘리면 게임 종료.
+13. 타워 업그레이드 구현.(투사체 데미지 : 타워 레벨 x 타워 카드패 데미지)
 
 23 - 01 - 25
 ![image](https://user-images.githubusercontent.com/99121615/213970803-e37a96ae-ce48-40ac-b77a-676a9ce32727.png)
 
 23 - 01 - 29
 ![image](https://user-images.githubusercontent.com/99121615/215318783-8f554347-2e97-4bfd-a6ac-6e5ebf821c9f.png)
+
+23 - 02 - 03
+![image](https://user-images.githubusercontent.com/99121615/216518600-32a58b09-d6be-43eb-91e7-5085e4db692f.png)
+![image](https://user-images.githubusercontent.com/99121615/216518635-795254f7-fef3-4068-a848-ee84e8fa18ed.png)
+
+
+
